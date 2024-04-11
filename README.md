@@ -61,15 +61,21 @@ To generate 3D meshes from images via command line, simply running:
 python run.py configs/instant-mesh-large.yaml examples/ --save_video
 ```
 
-By default, our script exports a `.obj` mesh with vertex colors, please specify the `--export_texmap` flag if you hope to export a mesh with a texture map instead:
+We use [rembg](https://github.com/danielgatis/rembg) to segment the foreground object. If the input image already has an alpha mask, please specify the `no_rembg` flag:
+```bash
+python run.py configs/instant-mesh-large.yaml examples/ --save_video --no_rembg
+```
+
+By default, our script exports a `.obj` mesh with vertex colors, please specify the `--export_texmap` flag if you hope to export a mesh with a texture map instead (this will cost longer time):
 ```bash
 python run.py configs/instant-mesh-large.yaml examples/ --save_video --export_texmap
 ```
 
 Please use a different `.yaml` config file in the [configs](./configs) directory if you hope to use other reconstruction model variants. For example, using the `instant-nerf-large` model for generation:
 ```bash
-python run.py configs/instant-nerf-large.yaml examples/ --save_video --export_texmap
+python run.py configs/instant-nerf-large.yaml examples/ --save_video
 ```
+**Note:** When using the `NeRF` model variants for image-to-3D generation, exporting a mesh with texture map by specifying `--export_texmap` may cost long time in the UV unwarping step since the default iso-surface extraction resolution is `256`. You can set a lower iso-surface extraction resolution in the config file.
 
 # 💻 Training
 

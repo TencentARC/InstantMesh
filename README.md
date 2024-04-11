@@ -17,7 +17,7 @@ https://github.com/TencentARC/InstantMesh/assets/20635237/737bba2d-df45-4707-855
 
 - [x] Release inference and training code.
 - [x] Release model weights.
-- [ ] Release hugging face gradio demo (we are waiting for the GPU grant and will make it available as soon as possible).
+- [x] Release hugging face gradio demo. Please try it at [demo](https://huggingface.co/spaces/TencentARC/InstantMesh) link.
 - [ ] Add support to more multi-view diffusion models.
 
 # ⚙️ Dependencies and Installation

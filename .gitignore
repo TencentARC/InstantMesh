@@ -30,7 +30,6 @@ MANIFEST
 tools/objaverse_rendering/blender-3.2.2-linux-x64/
 tools/objaverse_rendering/output/
 ckpts/
-data/
 lightning_logs/
 logs/
 .trash/

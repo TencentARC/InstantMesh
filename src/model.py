@@ -295,16 +295,9 @@ class MVRecon(pl.LightningModule):
 
         params = []
 
-        lrm_params_fast, lrm_params_slow = [], []
-        for n, p in self.lrm_generator.named_parameters():
-            if 'adaLN_modulation' in n or 'camera_embedder' in n:
-                lrm_params_fast.append(p)
-            else:
-                lrm_params_slow.append(p)
-        params.append({"params": lrm_params_fast, "lr": lr, "weight_decay": 0.01 })
-        params.append({"params": lrm_params_slow, "lr": lr / 10.0, "weight_decay": 0.01 })
+        params.append({"params": self.lrm_generator.parameters(), "lr": lr, "weight_decay": 0.01 })
 
         optimizer = torch.optim.AdamW(params, lr=lr, betas=(0.90, 0.95))
-        scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, 3000, eta_min=lr/4)
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, 3000, eta_min=lr/10)
 
         return {'optimizer': optimizer, 'lr_scheduler': scheduler}

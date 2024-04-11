@@ -20,7 +20,7 @@ from src.utils.train_util import instantiate_from_config
 from src.utils.camera_util import (
     FOV_to_intrinsics, 
     center_looking_at_camera_pose, 
-    get_circular_camera_poses,
+    get_surrounding_views,
 )
 
 
@@ -76,7 +76,7 @@ class ObjaverseData(Dataset):
         input_image_dir='rendering_random_32views',
         target_image_dir='rendering_random_32views',
         input_view_num=6,
-        target_view_num=2,
+        target_view_num=4,
         total_view_n=32,
         fov=50,
         camera_rotation=True,
@@ -97,7 +97,7 @@ class ObjaverseData(Dataset):
         paths = filtered_dict['good_objs']
         self.paths = paths
         
-        self.depth_scale = 5.0
+        self.depth_scale = 4.0
             
         total_objects = len(self.paths)
         print('============= length of dataset %d =============' % len(self.paths))
@@ -120,7 +120,6 @@ class ObjaverseData(Dataset):
         return image, alpha
     
     def __getitem__(self, index):
-        # load data
         while True:
             input_image_path = os.path.join(self.root_dir, self.input_image_dir, self.paths[index])
             target_image_path = os.path.join(self.root_dir, self.target_image_dir, self.paths[index])
@@ -210,7 +209,7 @@ class ObjaverseData(Dataset):
 
         # random scaling
         if np.random.rand() < 0.5:
-            scale = np.random.uniform(0.8, 1.0)
+            scale = np.random.uniform(0.7, 1.1)
             c2ws[:, :3, 3] *= scale
             depths *= scale
 
@@ -219,11 +218,11 @@ class ObjaverseData(Dataset):
         Ks = K.unsqueeze(0).repeat(self.input_view_num + self.target_view_num, 1, 1).float()
 
         data = {
-            'input_images': images[:self.input_view_num],     # (6, 3, H, W)
+            'input_images': images[:self.input_view_num],           # (6, 3, H, W)
             'input_alphas': alphas[:self.input_view_num],           # (6, 1, H, W) 
             'input_depths': depths[:self.input_view_num],           # (6, 1, H, W)
             'input_normals': normals[:self.input_view_num],         # (6, 3, H, W)
-            'input_c2ws': c2ws[:self.input_view_num],         # (6, 4, 4)
+            'input_c2ws': c2ws_input[:self.input_view_num],         # (6, 4, 4)
             'input_Ks': Ks[:self.input_view_num],                   # (6, 3, 3)
 
             # lrm generator input and supervision
@@ -233,8 +232,6 @@ class ObjaverseData(Dataset):
             'target_normals': normals[self.input_view_num:],        # (V, 3, H, W)
             'target_c2ws': c2ws[self.input_view_num:],              # (V, 4, 4)
             'target_Ks': Ks[self.input_view_num:],                  # (V, 3, 3)
-
-            'depth_available': 1,
         }
         return data
 
@@ -244,7 +241,7 @@ class ValidationData(Dataset):
         root_dir='objaverse/',
         input_view_num=6,
         input_image_size=256,
-        fov=30,
+        fov=50,
     ):
         self.root_dir = Path(root_dir)
         self.input_view_num = input_view_num
@@ -254,9 +251,9 @@ class ValidationData(Dataset):
         self.paths = sorted(os.listdir(self.root_dir))
         print('============= length of dataset %d =============' % len(self.paths))
 
-        cam_distance = 4.0
+        cam_distance = 2.5
         azimuths = np.array([30, 90, 150, 210, 270, 330])
-        elevations = np.array([20, -10, 20, -10, 20, -10])
+        elevations = np.array([30, -20, 30, -20, 30, -20])
         azimuths = np.deg2rad(azimuths)
         elevations = np.deg2rad(elevations)
 
@@ -270,7 +267,7 @@ class ValidationData(Dataset):
         self.c2ws = c2ws.float()
         self.Ks = FOV_to_intrinsics(self.fov).unsqueeze(0).repeat(6, 1, 1).float()
 
-        render_c2ws = get_circular_camera_poses(M=8, radius=cam_distance, elevation=20.0)
+        render_c2ws = get_surrounding_views(M=8, radius=cam_distance)
         render_Ks = FOV_to_intrinsics(self.fov).unsqueeze(0).repeat(render_c2ws.shape[0], 1, 1)
         self.render_c2ws = render_c2ws.float()
         self.render_Ks = render_Ks.float()

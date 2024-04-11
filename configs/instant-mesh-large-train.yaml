@@ -1,0 +1,68 @@
+model:
+  base_learning_rate: 4.0e-05
+  target: src.model_mesh.MVRecon
+  params:
+    init_ckpt: logs/instant-mesh-large/checkpoints/last.ckpt
+    input_size: 320
+    render_size: 512
+    
+    lrm_generator_config:
+      target: src.models.lrm_mesh.InstantMesh
+      params:
+        camera_embed_dim: 1024
+        rendering_samples_per_ray: 128
+        transformer_dim: 1024
+        transformer_layers: 16
+        transformer_heads: 16
+        triplane_low_res: 32
+        triplane_high_res: 64
+        triplane_dim: 80
+        encoder_feat_dim: 768
+        encoder_freeze: false
+        encoder_model_name: facebook/dino-vitb16
+        grid_res: 128
+        grid_scale: 2.1
+
+
+data:
+  target: src.data.objaverse.DataModuleFromConfig
+  params:
+    batch_size: 2
+    num_workers: 8
+    train:
+      target: src.data.objaverse.ObjaverseData
+      params:
+        root_dir: data/objaverse
+        meta_fname: filtered_obj_name.json
+        input_image_dir: rendering_random_32views
+        target_image_dir: rendering_random_32views
+        input_view_num: 6
+        target_view_num: 4
+        total_view_n: 32
+        fov: 50
+        camera_rotation: true
+        validation: false
+    validation:
+      target: src.data.objaverse.ValidationData
+      params:
+        root_dir: data/valid_samples
+        input_view_num: 6
+        input_image_size: 320
+        fov: 30
+
+
+lightning:
+  modelcheckpoint:
+    params:
+      every_n_train_steps: 2000
+      save_top_k: -1
+      save_last: true
+  callbacks: {}
+
+  trainer:
+    benchmark: true
+    max_epochs: -1
+    val_check_interval: 1000
+    num_sanity_val_steps: 0
+    accumulate_grad_batches: 1
+    check_val_every_n_epoch: null   # if not set this, validation does not run

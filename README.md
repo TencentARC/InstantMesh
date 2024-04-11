@@ -13,6 +13,13 @@ This repo is the official implementation of InstantMesh, a feed-forward framewor
 
 https://github.com/TencentARC/InstantMesh/assets/20635237/737bba2d-df45-4707-8557-1dd84f248764
 
+# 🚩 Todo List
+
+- [x] Release inference and training code.
+- [x] Release model weights.
+- [ ] Release hugging face gradio demo (we are waiting for the GPU grant and will make it available as soon as possible).
+- [ ] Add support to more multi-view diffusion models.
+
 # ⚙️ Dependencies and Installation
 
 We recommand using `Python>=3.10`, `PyTorch>=2.1.0`, and `CUDA=12.1`.

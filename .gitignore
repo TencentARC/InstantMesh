@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+.eggs/
+.vscode/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+.DS_Store
+
+tools/objaverse_rendering/blender-3.2.2-linux-x64/
+tools/objaverse_rendering/output/
+ckpts/
+data/
+lightning_logs/
+logs/
+.trash/
+.env/
+outputs/
+figures*/
+
+# Useless Files
+*.sh
+blender/
+.restore/

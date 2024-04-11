@@ -2,7 +2,7 @@
   
 # InstantMesh: Efficient 3D Mesh Generation from a Single Image with Sparse-view Large Reconstruction Models
 
-<a href="https://huggingface.co/papers/xxx"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Paper-Huggingface-orange"></a> <a href="https://huggingface.co/TencentARC/InstantMesh"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Model_Card-Huggingface-orange"></a> <a href="https://huggingface.co/spaces/TencentARC/InstantMesh"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Gradio%20Demo-Huggingface-orange"></a>
+<a href="https://arxiv.org/abs/2404.07199"><img src="https://img.shields.io/badge/ArXiv-2404.07199-brightgreen"></a> <a href="https://huggingface.co/TencentARC/InstantMesh"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Model_Card-Huggingface-orange"></a> <a href="https://huggingface.co/spaces/TencentARC/InstantMesh"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Gradio%20Demo-Huggingface-orange"></a>
 
 </div>
 
@@ -97,8 +97,8 @@ If you find our work useful for your research or applications, please cite using
 ```BibTeX
 @article{xu2024instantmesh,
   title={InstantMesh: Efficient 3D Mesh Generation from a Single Image with Sparse-view Large Reconstruction Models},
-  author={Jiale Xu and Weihao Cheng and Yiming Gao and Xintao Wang and Shenghua Gao and Ying Shan},
-  journal={arXiv preprint},
+  author={Xu, Jiale and Cheng, Weihao and Gao, Yiming and Wang, Xintao and Gao, Shenghua and Shan, Ying},
+  journal={arXiv preprint arXiv:2404.07199},
   year={2024}
 }
 ```

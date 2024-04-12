@@ -56,7 +56,7 @@ class MVRecon(pl.LightningModule):
                         if 'weight' in k:
                             sd_fc[k.replace('net.', 'net_sdf.')] = -v[0:1]
                         else:
-                            sd_fc[k.replace('net.', 'net_sdf.')] = 3.0 - v[0:1]
+                            sd_fc[k.replace('net.', 'net_sdf.')] = 10.0 - v[0:1]
                         sd_fc[k.replace('net.', 'net_rgb.')] = v[1:4]
                     else:
                         sd_fc[k.replace('net.', 'net_sdf.')] = v

@@ -1,12 +1,7 @@
 import os
-import argparse
 import imageio
-import time
-import mcubes
-import cv2
 import numpy as np
 import torch
-import trimesh
 import rembg
 from PIL import Image
 from torchvision.transforms import v2
@@ -26,7 +21,6 @@ from src.utils.mesh_util import save_obj
 from src.utils.infer_util import remove_background, resize_foreground, images_to_video
 
 import tempfile
-from functools import partial
 from huggingface_hub import hf_hub_download
 
 
@@ -40,7 +34,7 @@ def get_render_cameras(batch_size=1, M=120, radius=2.5, elevation=10.0, is_flexi
         cameras = cameras.unsqueeze(0).repeat(batch_size, 1, 1, 1)
     else:
         extrinsics = c2ws.flatten(-2)
-        intrinsics = FOV_to_intrinsics(50.0).unsqueeze(0).repeat(M, 1, 1).float().flatten(-2)
+        intrinsics = FOV_to_intrinsics(30.0).unsqueeze(0).repeat(M, 1, 1).float().flatten(-2)
         cameras = torch.cat([extrinsics, intrinsics], dim=-1)
         cameras = cameras.unsqueeze(0).repeat(batch_size, 1, 1)
     return cameras
@@ -104,7 +98,7 @@ model.load_state_dict(state_dict, strict=True)
 
 model = model.to(device)
 if IS_FLEXICUBES:
-    model.init_flexicubes_geometry(device)
+    model.init_flexicubes_geometry(device, fovy=30.0)
 model = model.eval()
 
 print('Loading Finished!')
@@ -176,7 +170,8 @@ def make3d(images):
     images = rearrange(images, 'c (n h) (m w) -> (n m) c h w', n=3, m=2)        # (6, 3, 320, 320)
 
     input_cameras = get_zero123plus_input_cameras(batch_size=1, radius=4.0).to(device)
-    render_cameras = get_render_cameras(batch_size=1, radius=4.0, is_flexicubes=IS_FLEXICUBES).to(device)
+    render_cameras = get_render_cameras(
+        batch_size=1, radius=4.5, elevation=20.0, is_flexicubes=IS_FLEXICUBES).to(device)
 
     images = images.unsqueeze(0).to(device)
     images = v2.functional.resize(images, (320, 320), interpolation=3, antialias=True).clamp(0, 1)

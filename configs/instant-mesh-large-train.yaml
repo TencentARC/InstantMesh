@@ -2,7 +2,7 @@ model:
   base_learning_rate: 4.0e-05
   target: src.model_mesh.MVRecon
   params:
-    init_ckpt: logs/instant-mesh-large/checkpoints/last.ckpt
+    init_ckpt: logs/instant-nerf-large-train/checkpoints/last.ckpt
     input_size: 320
     render_size: 512
     

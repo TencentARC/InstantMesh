@@ -154,8 +154,9 @@ def make_mesh(mesh_fpath, planes):
         )
 
         vertices, faces, vertex_colors = mesh_out
-        vertices = vertices[:, [0, 2, 1]]
+        vertices = vertices[:, [1, 2, 0]]
         vertices[:, -1] *= -1
+        faces = faces[:, [2, 1, 0]]
 
         save_obj(vertices, faces, vertex_colors, mesh_fpath)
         
@@ -270,7 +271,7 @@ with gr.Blocks() as demo:
                     do_remove_background = gr.Checkbox(
                         label="Remove Background", value=True
                     )
-                    sample_seed = gr.Number(value=42, label="Seed  (Try a different value if the result is unsatisfying)", precision=0)
+                    sample_seed = gr.Number(value=42, label="Seed Value", precision=0)
 
                     sample_steps = gr.Slider(
                         label="Sample Steps",
@@ -319,6 +320,9 @@ with gr.Blocks() as demo:
                     width=768,
                     interactive=False,
                 )
+            with gr.Row():
+                gr.Markdown('''Try a different <b>seed value</b> if the result is unsatisfying (Default: 42).''')
+
     gr.Markdown(_LINKS_)
     gr.Markdown(_CITE_)
     mv_images = gr.State()

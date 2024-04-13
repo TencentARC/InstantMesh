@@ -133,7 +133,8 @@ def generate_mvs(input_image, sample_steps, sample_seed):
 
     show_image = np.asarray(z123_image, dtype=np.uint8)
     show_image = torch.from_numpy(show_image)     # (960, 640, 3)
-    show_image = rearrange(show_image, '(n h) (m w) c -> (m h) (n w) c', n=3, m=2)
+    show_image = rearrange(show_image, '(n h) (m w) c -> (n m) h w c', n=3, m=2)
+    show_image = rearrange(show_image, '(n m) h w c -> (n h) (m w) c', n=2, m=3)
     show_image = Image.fromarray(show_image.numpy())
 
     return z123_image, show_image

@@ -80,7 +80,7 @@ python run.py configs/instant-nerf-large.yaml examples/hatsune_miku.png --save_v
 
 # 💻 Training
 
-We provide our training code to facilatate future research. But we cannot provide the training dataset due to its size. Please refer to our [dataloader](src/data/objaverse.py) for more details.
+We provide our training code to facilitate future research. But we cannot provide the training dataset due to its size. Please refer to our [dataloader](src/data/objaverse.py) for more details.
 
 To train the sparse-view reconstruction models, please run:
 ```bash

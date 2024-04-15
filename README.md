@@ -10,8 +10,7 @@
 
 This repo is the official implementation of InstantMesh, a feed-forward framework for efficient 3D mesh generation from a single image based on the LRM architecture.
 
-
-https://github.com/TencentARC/InstantMesh/assets/20635237/737bba2d-df45-4707-8557-1dd84f248764
+https://github.com/TencentARC/InstantMesh/assets/20635237/dab3511e-e7c6-4c0b-bab7-15772045c47d
 
 # 🚩 Todo List
 

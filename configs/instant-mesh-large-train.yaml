@@ -35,7 +35,7 @@ data:
         meta_fname: filtered_obj_name.json
         input_image_dir: rendering_random_32views
         target_image_dir: rendering_random_32views
-        input_view_num: 4
+        input_view_num: 6
         target_view_num: 4
         total_view_n: 32
         fov: 50

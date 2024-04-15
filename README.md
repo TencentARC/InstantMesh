@@ -22,7 +22,7 @@ https://github.com/TencentARC/InstantMesh/assets/20635237/dab3511e-e7c6-4c0b-bab
 
 # ⚙️ Dependencies and Installation
 
-We recommand using `Python>=3.10`, `PyTorch>=2.1.0`, and `CUDA=12.1`.
+We recommend using `Python>=3.10`, `PyTorch>=2.1.0`, and `CUDA=12.1`.
 ```bash
 conda create --name instantmesh python=3.10
 conda activate instantmesh

@@ -27,16 +27,28 @@ https://github.com/TencentARC/InstantMesh/assets/20635237/dab3511e-e7c6-4c0b-bab
 
 # ⚙️ Dependencies and Installation
 
-We recommend using `Python>=3.10`, `PyTorch>=2.1.0`, and `CUDA=12.1`.
+We recommend using `Python>=3.10`, `PyTorch>=2.1.0`, and `CUDA>=12.1`.
 ```bash
 conda create --name instantmesh python=3.10
 conda activate instantmesh
 pip install -U pip
 
+# Ensure Ninja is installed
+conda install Ninja
+
+# Install the correct version of CUDA
+conda install cuda -c nvidia/label/cuda-12.1.0
+
 # Install PyTorch and xformers
 # You may need to install another xformers version if you use a different PyTorch version
 pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu121
 pip install xformers==0.0.22.post7
+
+# For Linux users: Install Triton 
+pip install triton
+
+# For Windows users: Use the prebuilt version of Triton provided here:
+pip install https://huggingface.co/r4ziel/xformers_pre_built/resolve/main/triton-2.0.0-cp310-cp310-win_amd64.whlpip install https://huggingface.co/r4ziel/xformers_pre_built/resolve/main/triton-2.0.0-cp310-cp310-win_amd64.whl
 
 # Install other requirements
 pip install -r requirements.txt

@@ -17,7 +17,7 @@ from src.utils.camera_util import (
     get_zero123plus_input_cameras,
     get_circular_camera_poses,
 )
-from src.utils.mesh_util import save_obj
+from src.utils.mesh_util import save_obj, save_glb
 from src.utils.infer_util import remove_background, resize_foreground, images_to_video
 
 import tempfile
@@ -139,11 +139,12 @@ def generate_mvs(input_image, sample_steps, sample_seed):
 
     return z123_image, show_image
 
+
 def make_mesh(mesh_fpath, planes):
 
     mesh_basename = os.path.basename(mesh_fpath).split('.')[0]
     mesh_dirname = os.path.dirname(mesh_fpath)
-    mesh_vis_fpath = os.path.join(mesh_dirname, f"{mesh_basename}.glb")
+    mesh_glb_fpath = os.path.join(mesh_dirname, f"{mesh_basename}.glb")
         
     with torch.no_grad():
         # get mesh
@@ -156,14 +157,14 @@ def make_mesh(mesh_fpath, planes):
 
         vertices, faces, vertex_colors = mesh_out
         vertices = vertices[:, [1, 2, 0]]
-        vertices[:, -1] *= -1
-        faces = faces[:, [2, 1, 0]]
-
+        
+        save_glb(vertices, faces, vertex_colors, mesh_glb_fpath)
         save_obj(vertices, faces, vertex_colors, mesh_fpath)
         
         print(f"Mesh saved to {mesh_fpath}")
 
-    return mesh_fpath
+    return mesh_fpath, mesh_glb_fpath
+
 
 def make3d(images):
 
@@ -217,10 +218,9 @@ def make3d(images):
 
         print(f"Video saved to {video_fpath}")
 
-    mesh_fpath = make_mesh(mesh_fpath, planes)
+    mesh_fpath, mesh_glb_fpath = make_mesh(mesh_fpath, planes)
 
-    return video_fpath, mesh_fpath
-
+    return video_fpath, mesh_fpath, mesh_glb_fpath
 
 
 import gradio as gr
@@ -316,11 +316,20 @@ with gr.Blocks() as demo:
                     )
 
             with gr.Row():
-                output_model_obj = gr.Model3D(
-                    label="Output Model (OBJ Format)",
-                    # width=768,
-                    interactive=False,
-                )
+                with gr.Tab("OBJ"):
+                    output_model_obj = gr.Model3D(
+                        label="Output Model (OBJ Format)",
+                        #width=768,
+                        interactive=False,
+                    )
+                with gr.Tab("GLB"):
+                    output_model_glb = gr.Model3D(
+                        label="Output Model (GLB Format)",
+                        #width=768,
+                        interactive=False,
+                    )
+                    gr.Markdown("Note: The model shown here has a darker appearance. Download to get correct results.")
+
             with gr.Row():
                 gr.Markdown('''Try a different <b>seed value</b> if the result is unsatisfying (Default: 42).''')
 
@@ -339,7 +348,7 @@ with gr.Blocks() as demo:
     ).success(
         fn=make3d,
         inputs=[mv_images],
-        outputs=[output_video, output_model_obj]
+        outputs=[output_video, output_model_obj, output_model_glb]
     )
 
 demo.queue(max_size=10)

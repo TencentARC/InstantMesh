@@ -227,14 +227,22 @@ import gradio as gr
 
 _HEADER_ = '''
 <h2><b>Official 🤗 Gradio Demo</b></h2><h2><a href='https://github.com/TencentARC/InstantMesh' target='_blank'><b>InstantMesh: Efficient 3D Mesh Generation from a Single Image with Sparse-view Large Reconstruction Models</b></a></h2>
-'''
 
-_LINKS_ = '''
-<h3>Code is available at <a href='https://github.com/TencentARC/InstantMesh' target='_blank'>GitHub</a></h3>
-<h3>Report is available at <a href='https://arxiv.org/abs/2404.07191' target='_blank'>ArXiv</a></h3>
+**InstantMesh** is a feed-forward framework for efficient 3D mesh generation from a single image based on the LRM/Instant3D architecture.
+
+Code: <a href='https://github.com/TencentARC/InstantMesh' target='_blank'>GitHub</a>. Techenical report: <a href='https://arxiv.org/abs/2404.07191' target='_blank'>ArXiv</a>.
+
+❗️❗️❗️**Important Notes:**
+- Our demo can export a .obj mesh with vertex colors or a .glb mesh now. If you prefer to export a .obj mesh with a **texture map**, please refer to our <a href='https://github.com/TencentARC/InstantMesh?tab=readme-ov-file#running-with-command-line' target='_blank'>Github Repo</a>.
+- The 3D mesh generation results highly depend on the quality of generated multi-view images. Please try a different **seed value** if the result is unsatisfying (Default: 42).
 '''
 
 _CITE_ = r"""
+If InstantMesh is helpful, please help to ⭐ the <a href='https://github.com/TencentARC/InstantMesh' target='_blank'>Github Repo</a>. Thanks! [![GitHub Stars](https://img.shields.io/github/stars/TencentARC/InstantMesh?style=social)](https://github.com/TencentARC/InstantMesh)
+---
+📝 **Citation**
+
+If you find our work useful for your research or applications, please cite using this bibtex:
 ```bibtex
 @article{xu2024instantmesh,
   title={InstantMesh: Efficient 3D Mesh Generation from a Single Image with Sparse-view Large Reconstruction Models},
@@ -243,6 +251,14 @@ _CITE_ = r"""
   year={2024}
 }
 ```
+
+📋 **License**
+
+Apache-2.0 LICENSE. Please refer to the [LICENSE file](https://huggingface.co/spaces/TencentARC/InstantMesh/blob/main/LICENSE) for details.
+
+📧 **Contact**
+
+If you have any questions, feel free to open a discussion or contact us at <b>bluestyle928@gmail.com</b>.
 """
 
 with gr.Blocks() as demo:
@@ -322,6 +338,7 @@ with gr.Blocks() as demo:
                         #width=768,
                         interactive=False,
                     )
+                    gr.Markdown("Note: Downloaded .obj model will be flipped. Export .glb instead or manually flip it before usage.")
                 with gr.Tab("GLB"):
                     output_model_glb = gr.Model3D(
                         label="Output Model (GLB Format)",
@@ -333,7 +350,6 @@ with gr.Blocks() as demo:
             with gr.Row():
                 gr.Markdown('''Try a different <b>seed value</b> if the result is unsatisfying (Default: 42).''')
 
-    gr.Markdown(_LINKS_)
     gr.Markdown(_CITE_)
     mv_images = gr.State()
 

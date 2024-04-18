@@ -48,7 +48,7 @@ pip install xformers==0.0.22.post7
 pip install triton
 
 # For Windows users: Use the prebuilt version of Triton provided here:
-pip install https://huggingface.co/r4ziel/xformers_pre_built/resolve/main/triton-2.0.0-cp310-cp310-win_amd64.whlpip install https://huggingface.co/r4ziel/xformers_pre_built/resolve/main/triton-2.0.0-cp310-cp310-win_amd64.whl
+pip install https://huggingface.co/r4ziel/xformers_pre_built/resolve/main/triton-2.0.0-cp310-cp310-win_amd64.whl
 
 # Install other requirements
 pip install -r requirements.txt

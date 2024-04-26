@@ -4,7 +4,6 @@ huggingface-hub
 einops
 omegaconf
 torchmetrics
-torchvision
 webdataset
 accelerate
 tensorboard
@@ -18,3 +17,9 @@ imageio[ffmpeg]
 xatlas
 plyfile
 git+https://github.com/NVlabs/nvdiffrast/
+Ninja
+torch==2.1.0
+torchvision==0.16.0
+torchaudio==2.1.0
+xformers==0.0.22.post7
+https://huggingface.co/r4ziel/xformers_pre_built/resolve/main/triton-2.0.0-cp310-cp310-win_amd64.whl

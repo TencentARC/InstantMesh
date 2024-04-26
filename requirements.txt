@@ -4,6 +4,7 @@ huggingface-hub
 einops
 omegaconf
 torchmetrics
+torchvision
 webdataset
 accelerate
 tensorboard

@@ -3,11 +3,32 @@
 if not defined PYTHON (set PYTHON=python)
 if not defined VENV_DIR (set "VENV_DIR=%~dp0%venv")
 if not defined REQUIREMENTS_FILE (set "REQUIREMENTS_FILE=requirements.txt")
+if not defined CONDA_URL (set "CONDA_URL=https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe")
+if not defined CONDA_INSTALL_DIR (set "CONDA_INSTALL_DIR=%UserProfile%\miniconda3")
 
 set ERROR_REPORTING=TRUE
 
 mkdir tmp 2>NUL
 
+where conda >tmp/stdout.txt 2>tmp/stderr.txt
+if %ERRORLEVEL% == 0 goto :install_cuda
+
+echo Conda not found. Installing Conda...
+powershell -Command "Invoke-WebRequest -Uri '%CONDA_URL%' -OutFile 'miniconda_installer.exe'"
+start /wait "" miniconda_installer.exe /InstallationType=JustMe /RegisterPython=0 /S /D=%CONDA_INSTALL_DIR%
+set "PATH=%CONDA_INSTALL_DIR%;%CONDA_INSTALL_DIR%\Scripts;%CONDA_INSTALL_DIR%\Library\bin;%PATH%"
+del miniconda_installer.exe
+
+:install_cuda
+echo Installing CUDA using conda...
+conda install -y cuda -c nvidia/label/cuda-12.1.0
+if %ERRORLEVEL% == 0 (
+    echo CUDA installed successfully.
+) else (
+    echo Failed to install CUDA using conda.
+)
+
+:install_requirements
 %PYTHON% -c "" >tmp/stdout.txt 2>tmp/stderr.txt
 if %ERRORLEVEL% == 0 goto :check_pip
 
@@ -77,7 +98,7 @@ type tmp\stdout.txt
 
 :show_stderr
 for /f %%i in ("tmp\stderr.txt") do set size=%%~zi
-if %size% equ 0 goto :show_stderr
+if %size% equ 0 goto :endofscript
 echo.
 echo stderr:
 type tmp\stderr.txt

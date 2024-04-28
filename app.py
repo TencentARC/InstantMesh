@@ -1,4 +1,6 @@
 import os
+os.environ['CUDA_HOME'] = os.environ.get('CUDA_HOME', r'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.4')
+
 import imageio
 import numpy as np
 import torch
@@ -22,6 +24,7 @@ from src.utils.infer_util import remove_background, resize_foreground, images_to
 
 import tempfile
 from huggingface_hub import hf_hub_download
+
 
 
 def get_render_cameras(batch_size=1, M=120, radius=2.5, elevation=10.0, is_flexicubes=False):
@@ -368,4 +371,4 @@ with gr.Blocks() as demo:
     )
 
 demo.queue(max_size=10)
-demo.launch(server_name="0.0.0.0", server_port=43839)
+demo.launch(server_name="localhost", server_port=5000)

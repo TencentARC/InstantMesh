@@ -16,7 +16,7 @@ bitsandbytes
 imageio[ffmpeg]
 xatlas
 plyfile
-git+https://github.com/NVlabs/nvdiffrast/
+git+https://github.com/emangamer/nvdiffrast
 Ninja
 --index-url https://download.pytorch.org/whl/cu121
 torch==2.1.0+cu121

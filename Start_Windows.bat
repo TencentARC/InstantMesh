@@ -4,7 +4,7 @@ REM Set Python to use UTF-8 encoding by default
 set PYTHONUTF8=1
 
 REM Set Python 3.10 installation path
-set PYTHON=C:\Program Files\Python310\python.exe
+set PYTHON="C:\Program Files\Python310\python.exe"
 
 if not defined VENV_DIR (set "VENV_DIR=%~dp0%venv")
 if not defined REQUIREMENTS_FILE (set "REQUIREMENTS_FILE=requirements.txt")

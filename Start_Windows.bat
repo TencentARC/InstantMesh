@@ -3,11 +3,9 @@
 REM Set Python to use UTF-8 encoding by default
 set PYTHONUTF8=1
 
-if not defined PYTHON (
-    for /f "delims=" %%P in ('where python') do (
-        set PYTHON=%%P
-    )
-)
+REM Set Python 3.10 installation path
+set PYTHON=C:\Program Files\Python310\python.exe
+
 if not defined VENV_DIR (set "VENV_DIR=%~dp0%venv")
 if not defined REQUIREMENTS_FILE (set "REQUIREMENTS_FILE=requirements.txt")
 if not defined CONDA_INSTALL_DIR (set "CONDA_INSTALL_DIR=%UserProfile%\miniconda3")
@@ -44,9 +42,8 @@ if ["%SKIP_VENV%"] == ["1"] goto :skip_venv
 dir "%VENV_DIR%\Scripts\Python.exe" >nul 2>&1
 if %ERRORLEVEL% == 0 goto :activate_venv
 
-for /f "delims=" %%i in ('CALL %PYTHON% -c "import sys; print(sys.executable)"') do set PYTHON_FULLNAME="%%i"
-echo Creating venv in directory %VENV_DIR% using python %PYTHON_FULLNAME%
-%PYTHON_FULLNAME% -m venv "%VENV_DIR%"
+echo Creating venv in directory %VENV_DIR% using python %PYTHON%
+%PYTHON% -m venv "%VENV_DIR%"
 if %ERRORLEVEL% == 0 (
     echo Virtual environment created successfully.
 ) else (

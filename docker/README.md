@@ -19,4 +19,10 @@ export MODEL_DIR=$HOME/models/
 docker run -it -p 43839:43839 --platform=linux/amd64 --gpus all -v $MODEL_DIR:/workspace/instantmesh/models instantmesh
 ```
 
+To use specific GPUs:
+
+```bash
+docker run -it -p 43839:43839 --platform=linux/amd64 --gpus '"device=0,1"' -v $MODEL_DIR:/workspace/instantmesh/models instantmesh
+```
+
 Navigate to `http://localhost:43839` to use the demo.

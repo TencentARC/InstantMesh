@@ -68,7 +68,7 @@ By default, we use the `instant-mesh-large` reconstruction model variant.
 
 To start a gradio demo in your local machine, simply running:
 ```bash
-python app.py
+CUDA_VISIBLE_DEVICES=0 python app.py
 ```
 
 ## Running with command line

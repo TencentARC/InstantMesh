@@ -66,14 +66,14 @@ By default, we use the `instant-mesh-large` reconstruction model variant.
 
 ## Start a local gradio demo
 
-To start a gradio demo in your local machine, simply running:
+To start a gradio demo in your local machine, simply run:
 ```bash
 CUDA_VISIBLE_DEVICES=0 python app.py
 ```
 
 ## Running with command line
 
-To generate 3D meshes from images via command line, simply running:
+To generate 3D meshes from images via command line, simply run:
 ```bash
 python run.py configs/instant-mesh-large.yaml examples/hatsune_miku.png --save_video
 ```

@@ -51,5 +51,8 @@ RUN pip install -r requirements.txt
 
 COPY . /workspace/instantmesh
 
+# Add a volume for downloaded models
+VOLUME /workspace/models
+
 # Run the command when the container starts
 CMD ["python", "app.py"]

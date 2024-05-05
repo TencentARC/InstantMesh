@@ -23,6 +23,7 @@ from src.utils.infer_util import remove_background, resize_foreground, images_to
 import tempfile
 from huggingface_hub import hf_hub_download
 
+
 if torch.cuda.is_available() and torch.cuda.device_count() >= 2:
     device0 = torch.device('cuda:0')
     device1 = torch.device('cuda:1')
@@ -31,7 +32,7 @@ else:
     device1 = device0
 
 # Define the cache directory for model files
-model_cache_dir = './models/'
+model_cache_dir = './ckpts/'
 os.makedirs(model_cache_dir, exist_ok=True)
 
 def get_render_cameras(batch_size=1, M=120, radius=2.5, elevation=10.0, is_flexicubes=False):

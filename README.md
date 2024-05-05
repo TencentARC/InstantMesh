@@ -68,6 +68,11 @@ By default, we use the `instant-mesh-large` reconstruction model variant.
 
 To start a gradio demo in your local machine, simply run:
 ```bash
+python app.py
+```
+
+If you have multiple GPUs in your machine, the demo app will run on two GPUs automatically to save memory. You can also force it to run on a single GPU:
+```bash
 CUDA_VISIBLE_DEVICES=0 python app.py
 ```
 

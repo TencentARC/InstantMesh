@@ -274,7 +274,7 @@ class MVRecon(pl.LightningModule):
 
         loss_reg = sdf_reg_loss_entropy + flexicubes_surface_reg + flexicubes_weights_reg
 
-        loss = loss_mse + loss_lpips + loss_mask + loss_normal + loss_reg
+        loss = loss_mse + loss_lpips + loss_mask + loss_depth + loss_normal + loss_reg
 
         prefix = 'train'
         loss_dict = {}

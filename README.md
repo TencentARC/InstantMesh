@@ -22,7 +22,7 @@ https://github.com/TencentARC/InstantMesh/assets/20635237/dab3511e-e7c6-4c0b-bab
 - [x] Release inference and training code.
 - [x] Release model weights.
 - [x] Release huggingface gradio demo. Please try it at [demo](https://huggingface.co/spaces/TencentARC/InstantMesh) link.
-- [ ] Add support to low-memory GPU environment.
+- [x] Add support to low-memory GPU environment.
 - [ ] Add support to more multi-view diffusion models.
 
 # ⚙️ Dependencies and Installation
@@ -66,14 +66,14 @@ By default, we use the `instant-mesh-large` reconstruction model variant.
 
 ## Start a local gradio demo
 
-To start a gradio demo in your local machine, simply running:
+To start a gradio demo in your local machine, simply run:
 ```bash
-python app.py
+CUDA_VISIBLE_DEVICES=0 python app.py
 ```
 
 ## Running with command line
 
-To generate 3D meshes from images via command line, simply running:
+To generate 3D meshes from images via command line, simply run:
 ```bash
 python run.py configs/instant-mesh-large.yaml examples/hatsune_miku.png --save_video
 ```

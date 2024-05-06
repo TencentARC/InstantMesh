@@ -1,8 +1,10 @@
 # get the development image from nvidia cuda 12.1
-FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:12.4.1-runtime-ubuntu22.04
 
-LABEL name="instantmesh" \
-    maintainer="instantmesh"
+LABEL name="instantmesh" maintainer="instantmesh"
+
+# Add a volume for downloaded models
+VOLUME /workspace/models
 
 # create workspace folder and set it as working directory
 RUN mkdir -p /workspace/instantmesh
@@ -12,12 +14,12 @@ WORKDIR /workspace
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y tzdata && \
-    ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime && \ 
     dpkg-reconfigure --frontend noninteractive tzdata
 
 # update package lists and install git, wget, vim, libegl1-mesa-dev, and libglib2.0-0
 RUN apt-get update && \
-    apt-get install -y git wget vim libegl1-mesa-dev libglib2.0-0 unzip
+    apt-get install -y build-essential git wget vim libegl1-mesa-dev libglib2.0-0 unzip
 
 # install conda
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
@@ -36,7 +38,7 @@ RUN conda create -n instantmesh python=3.10 && echo "source activate instantmesh
 ENV PATH /workspace/miniconda3/envs/instantmesh/bin:$PATH
 
 RUN conda install Ninja
-RUN conda install cuda -c nvidia/label/cuda-12.1.0 -y
+RUN conda install cuda -c nvidia/label/cuda-12.4.1 -y
 
 RUN pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu121
 RUN pip install xformers==0.0.22.post7

@@ -2,7 +2,7 @@
 
 This docker setup is tested on Ubuntu.
 
-make sure you are under directory yourworkspace/instantmesh/
+make sure you are under directory `yourworkspace/instantmesh/`
 
 Build docker image:
 

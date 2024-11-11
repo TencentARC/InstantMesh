@@ -45,11 +45,8 @@ conda install cuda -c nvidia/label/cuda-12.1.0
 pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu121
 pip install xformers==0.0.22.post7
 
-# For Linux users: Install Triton 
+# Install Triton 
 pip install triton
-
-# For Windows users: Use the prebuilt version of Triton provided here:
-pip install https://huggingface.co/r4ziel/xformers_pre_built/resolve/main/triton-2.0.0-cp310-cp310-win_amd64.whl
 
 # Install other requirements
 pip install -r requirements.txt

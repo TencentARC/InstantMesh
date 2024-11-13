@@ -16,4 +16,10 @@ bitsandbytes
 imageio[ffmpeg]
 xatlas
 plyfile
-git+https://github.com/NVlabs/nvdiffrast/
+git+https://github.com/emangamer/nvdiffrast
+Ninja
+torch @ https://download.pytorch.org/whl/cu121/torch-2.1.0%2Bcu121-cp310-cp310-win_amd64.whl#sha256=6ee083ba804e863af059ea284c1678c1b0628699fb0014c8e043ceed7d4ce930
+torchvision==0.16.0
+torchaudio==2.1.0
+xformers==0.0.22.post7
+https://huggingface.co/r4ziel/xformers_pre_built/resolve/main/triton-2.0.0-cp310-cp310-win_amd64.whl

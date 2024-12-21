@@ -17,3 +17,4 @@ imageio[ffmpeg]
 xatlas
 plyfile
 git+https://github.com/NVlabs/nvdiffrast/
+onnxruntime

@@ -5,7 +5,7 @@ einops
 omegaconf
 torchmetrics
 webdataset
-accelerate
+accelerate==0.31.0
 tensorboard
 PyMCubes
 trimesh

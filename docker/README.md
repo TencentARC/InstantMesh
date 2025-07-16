@@ -7,7 +7,7 @@ make sure you are under directory `yourworkspace/instantmesh/`
 Build docker image:
 
 ```bash
-docker build -t instantmesh -f docker/Dockerfile .
+docker build -t instantmesh -f docker/Dockerfile --build-arg ACCEPT_CONDA_TOS=y .
 ```
 
 Run docker image with a local model cache (so it is fast when container is started next time):

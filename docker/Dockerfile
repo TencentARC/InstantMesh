@@ -33,6 +33,11 @@ ENV PATH="/workspace/miniconda3/bin:${PATH}"
 # initialize conda
 RUN conda init bash
 
+# accept conda tos
+ARG ACCEPT_CONDA_TOS
+RUN if [ "${ACCEPT_CONDA_TOS}" != "y" ] && [ "${ACCEPT_CONDA_TOS}" != "Y" ]; then echo "ERROR: You must accept the Conda TOS by setting ACCEPT_CONDA_TOS=y" && exit 1; fi
+RUN conda tos accept
+
 # create and activate conda environment
 RUN conda create -n instantmesh python=3.10 && echo "source activate instantmesh" > ~/.bashrc
 ENV PATH /workspace/miniconda3/envs/instantmesh/bin:$PATH
